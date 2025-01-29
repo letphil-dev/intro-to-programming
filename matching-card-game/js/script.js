@@ -19,12 +19,40 @@
             - re renders the cards
 
 */
+const images = [
+  { src: "./assets/helmet-1.png", matched: false },
+  { src: "./assets/potion-1.png", matched: false },
+  { src: "./assets/ring-1.png", matched: false },
+  { src: "./assets/scroll-1.png", matched: false },
+  { src: "./assets/shield-1.png", matched: false },
+  { src: "./assets/sword-1.png", matched: false },
+];
 
-const cards = [
-    {
-        src: '',
-        matched: false
-    }, {}, {}
-]
+const cardImages = [...images, ...images];
+console.log("cardArray = ", cardImages);
 
-const shuffledCards = [...cards, ...cards]
+// DOM elements
+const cards = document.querySelectorAll(".card");
+const cardFaces = document.querySelectorAll(".face");
+
+// renderCard function
+function renderCard() {
+  // update each cardFace with the corresponding image from cardArray
+  cardFaces.forEach((cardFace, index) => {
+    const img = document.createElement("img");
+    img.src = cardImages[index].src;
+    cardFace.appendChild(img);
+  });
+}
+
+// shuffleCard function
+function shuffleCard() {
+  for (let i = cardImages.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [cardImages[i], cardImages[j]] = [cardImages[j],cardImages[i]];
+  }
+  return cardImages;
+}
+
+shuffleCard();
+renderCard();
